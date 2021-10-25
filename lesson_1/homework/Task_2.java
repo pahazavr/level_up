@@ -10,13 +10,14 @@ import static org.junit.Assert.assertEquals;
  */
 public class Task_2 {
 
-    // O(1)
+    // O(n)
     private static int revertInteger(int num) {
-        String n3 = String.valueOf(num % 10);
-        String n2 = String.valueOf((num % 100) / 10);
-        String n1 = String.valueOf(num / 100);
-
-        return Integer.parseInt(n3 + n2 + n1);
+        StringBuilder result = new StringBuilder();
+        char[] chars = String.valueOf(num).toCharArray();
+        for(int i = chars.length - 1; i >= 0; i--) {
+            result.append(chars[i]);
+        }
+        return Integer.parseInt(result.toString());
     }
 
     @Test
@@ -24,10 +25,10 @@ public class Task_2 {
         int num = 103;
         assertEquals(301, revertInteger(num));
 
-        num = 999;
-        assertEquals(999, revertInteger(num));
+        num = 111111;
+        assertEquals(111111, revertInteger(num));
 
-        num = 111;
-        assertEquals(111, revertInteger(num));
+        num = 123456789;
+        assertEquals(987654321, revertInteger(num));
     }
 }
