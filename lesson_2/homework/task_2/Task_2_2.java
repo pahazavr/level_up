@@ -48,16 +48,36 @@ public class Task_2_2 {
         return result;
     }
 
+    // O(n) (O(n/2))
+    private CustomLinkedList swapEffective(CustomLinkedList list) {
+        CustomNode slow = list.getHead();
+        CustomNode fast = list.getHead();
+
+        fast = fast.getNext();
+        while(fast.getNext() != null && fast.getNext().getNext() != null) {
+            slow = slow.getNext();
+            fast = fast.getNext().getNext();
+        }
+
+        fast.setNext(list.getHead());
+        list.setHead(slow.getNext());
+        slow.setNext(null);
+
+        return list;
+    }
+
     @Test
     public void testCases() {
         CustomLinkedList list = new CustomLinkedList(new double[]{ 1, 2, 3, 4, 5, 6 });
         CustomLinkedList expected = new CustomLinkedList(new double[]{ 4, 5, 6, 1, 2, 3 });
 
         assertEquals(expected, swap(list));
+        assertEquals(expected, swapEffective(list));
 
         list = new CustomLinkedList(new double[]{ 3, 3, 3, 3, 3, 3, 3, 3 });
         expected = new CustomLinkedList(new double[]{ 3, 3, 3, 3, 3, 3, 3, 3 });
 
         assertEquals(expected, swap(list));
+        assertEquals(expected, swapEffective(list));
     }
 }

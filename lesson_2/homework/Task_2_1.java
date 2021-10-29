@@ -17,9 +17,8 @@ public class Task_2_1 {
         boolean desc = false;
         boolean asc = false;
 
-        if ((arr1[0] < arr1[arr1.length - 1] || arr1[0] == arr1[arr1.length - 1]) &&
-                (arr2[0] < arr2[arr2.length - 1] || arr2[0] == arr2[arr2.length - 1])) asc = true;
-        else if (arr1[0] > arr1[arr1.length - 1] && arr2[0] > arr2[arr2.length - 1]) desc = true;
+        if ((arr1[0] <= arr1[arr1.length - 1]) && (arr2[0] <= arr2[arr2.length - 1])) asc = true;
+        else if ((arr1[0] >= arr1[arr1.length - 1]) && (arr2[0] >= arr2[arr2.length - 1])) desc = true;
 
         if (asc || desc) {
             int indexArr1 = 0;
@@ -48,7 +47,7 @@ public class Task_2_1 {
                 }
             }
         } else {
-            boolean isArr1Asc = arr1[0] < arr1[1];
+            boolean isArr1Asc = arr1[0] <= arr1[arr1.length - 1];
             int indexArr1 = isArr1Asc ? 0 : arr1.length - 1;
             int indexArr2 = !isArr1Asc ? 0 : arr2.length - 1;
             for (int i = 0; i < result.length; i++) {
@@ -161,6 +160,36 @@ public class Task_2_1 {
         arr1 = new double[]{1, 2, 3, 4, 5, 5, 5, 7, 7, 12, 13, 14};
         arr2 = new double[]{13, 12, 11, 10, 9, 8, 3, 3, 3, 3};
         expected = new double[]{1, 2, 3, 3, 3, 3, 3, 4, 5, 5, 5, 7, 7, 8, 9, 10, 11, 12, 12, 13, 13, 14};
+        assertArrayEquals(expected, mergeSort(arr1, arr2), 0);
+
+        // один из массивов состоит из 1 элемента
+        arr1 = new double[]{1, 2, 3, 4, 5};
+        arr2 = new double[]{1};
+        expected = new double[]{1, 1, 2, 3, 4, 5};
+        assertArrayEquals(expected, mergeSort(arr1, arr2), 0);
+
+        // один из массивов состоит из 1 элемента
+        arr1 = new double[]{1};
+        arr2 = new double[]{5, 4, 3, 2, 1};
+        expected = new double[]{5, 4, 3, 2, 1, 1};
+        assertArrayEquals(expected, mergeSort(arr1, arr2), 0);
+
+        // первые элементы повторяются
+        arr1 = new double[]{5, 5, 5, 4, 3, 2, 1};
+        arr2 = new double[]{1};
+        expected = new double[]{5, 5, 5, 4, 3, 2, 1, 1};
+        assertArrayEquals(expected, mergeSort(arr1, arr2), 0);
+
+        // элементы в массивах одинаковые
+        arr1 = new double[]{5, 5, 5, 5};
+        arr2 = new double[]{1, 1, 1};
+        expected = new double[]{1, 1, 1, 5, 5, 5, 5};
+        assertArrayEquals(expected, mergeSort(arr1, arr2), 0);
+
+        // все элементы одинаковые
+        arr1 = new double[]{5, 5, 5, 5};
+        arr2 = new double[]{5, 5, 5};
+        expected = new double[]{5, 5, 5, 5, 5, 5, 5};
         assertArrayEquals(expected, mergeSort(arr1, arr2), 0);
     }
 }
