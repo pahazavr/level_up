@@ -18,15 +18,12 @@ public class Task_3 {
         // O(nlog(n))
         Arrays.sort(arr);
 
-        double medium = (arr[arr.length - 1] - arr[0]) / 2 ;
+        double mid = (arr[arr.length - 1] - arr[0]) / 2 ;
         double result = arr[0];
-        double diff = arr[arr.length - 1];
 
-        for (double num : arr) {
-            double temp = Math.abs(num - medium);
-            if (diff > temp) {
-                diff = temp;
-                result = num;
+        for (int i = 1; i < arr.length; i++) {
+            if (Math.abs(mid - arr[i]) < Math.abs(mid - result)) {
+                result = arr[i];
             }
         }
 
@@ -45,15 +42,12 @@ public class Task_3 {
             else if(num > max) max = num;
         }
 
-        double medium = (max - min) / 2;
+        double mid = (max - min) / 2;
         double result = min;
-        double diff = max;
 
-        for (double num : arr) {
-            double temp = Math.abs(num - medium);
-            if (temp < diff) {
-                diff = temp;
-                result = num;
+        for (int i = 1; i < arr.length; i++) {
+            if (Math.abs(mid - arr[i]) < Math.abs(mid - result)) {
+                result = arr[i];
             }
         }
 

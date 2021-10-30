@@ -15,25 +15,24 @@ public class Task_5 {
     private static int calcBestDistance(int[] arr) {
         int result = 0;
         int temp = 0;
-        int startIndex;
+        boolean fromStart;
 
-        for(int i = 0; i < arr.length; i++) {
-            startIndex = i;
+        for (int i = 0; i < arr.length; i++) {
+            fromStart = i == 0;
 
             // search for consecutive 0
-            while(i < arr.length && arr[i] == 0) {
+            while (i < arr.length && arr[i] == 0) {
                 temp++;
                 i++;
             }
 
             // if the current sequence 0 is not at the beginning and not at the end of the array,
             // then it is required to divide its length in half (with rounding up)
-            if(startIndex != 0 && i != arr.length) {
-                if(temp % 2 == 0) temp = temp / 2;
-                else temp = temp / 2 + 1;
+            if (!fromStart && i != arr.length) {
+                temp = temp / 2 + temp % 2;
             }
 
-            if(result < temp) result = temp;
+            if (result < temp) result = temp;
             temp = 0;
         }
 
