@@ -35,7 +35,7 @@ public class Task_2_3 {
 
         // find i's element with value < 2 (pair was not found)
         for (int i = 0; i < pairCounter.length; i++) {
-            if (pairCounter[i] < 2) result = i;
+            if (pairCounter[i] == 1) result = i;
         }
 
         return result;
@@ -53,7 +53,7 @@ public class Task_2_3 {
         }
 
         return pairMap.keySet().stream()
-                .filter(key -> pairMap.get(key) < 2)
+                .filter(key -> pairMap.get(key) == 1)
                 .findFirst()
                 .orElse(0);
     }
@@ -89,5 +89,13 @@ public class Task_2_3 {
         //
         arr = new int[]{3, 3, 3, 3, 5, 5, 8, 8, 10000};
         assertEquals(10000, findWithoutPairEffective(arr));
+
+        //
+        arr = new int[]{1, 2, 1, 4, 5, 4, 5};
+        assertEquals(2, findWithoutPair(arr));
+
+        //
+        arr = new int[]{1, 2, 1, 4, 5, 4, 5};
+        assertEquals(2, findWithoutPairEffective(arr));
     }
 }
