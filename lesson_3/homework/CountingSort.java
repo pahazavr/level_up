@@ -7,8 +7,13 @@ import static org.junit.Assert.assertArrayEquals;
 public class CountingSort {
 
     private int[] sort(int[] arr) {
-        int max = getMax(arr);
-        int min = getMin(arr);
+        int min = arr[0];
+        int max = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > max) max = arr[i];
+            if (arr[i] < min) min = arr[i];
+        }
 
         // k = max - min + 1 (using offset)
         int[] counter = new int[max - min + 1];
@@ -27,24 +32,6 @@ public class CountingSort {
         }
 
         return arr;
-    }
-
-    private static int getMax(int[] arr) {
-        int max = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            if (arr[i] > max) max = arr[i];
-        }
-
-        return max;
-    }
-
-    private static int getMin(int[] arr) {
-        int min = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            if (arr[i] < min) min = arr[i];
-        }
-
-        return min;
     }
 
     @Test
