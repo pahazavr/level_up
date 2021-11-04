@@ -13,18 +13,18 @@ import static org.junit.Assert.assertEquals;
 public class Task_2_4 {
 
     private int next(BinaryTree tree, int data) {
-        int diff = tree.getRoot().getData();
-        int result = 0;
+        int nextElement = findMax(tree);
+        if (nextElement == data) throw new IllegalArgumentException();
+
         Stack<TreeNode> stack = new Stack<>();
         stack.push(tree.getRoot());
 
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
 
-            if(node.data > data) {
-                if (node.data - data < diff) {
-                    result = node.data;
-                    diff = node.data - data;
+            if (node.data > data) {
+                if (node.data <= nextElement) {
+                    nextElement = node.data;
                 }
             }
 
@@ -36,9 +36,30 @@ public class Task_2_4 {
             }
         }
 
-        if(result != 0) return result;
+        return nextElement;
+    }
 
-        throw new IllegalArgumentException();
+    private static int findMax(BinaryTree tree) {
+        int max = tree.getRoot().getData();
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(tree.getRoot());
+
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+
+            if (node.data > max) {
+                max = node.data;
+            }
+
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+        }
+
+        return max;
     }
 
     @Data
@@ -90,14 +111,17 @@ public class Task_2_4 {
     @Test
     public void testCases() {
         BinaryTree tree = new BinaryTree(new int[]{20, 7, 4, 6, 9, 35, 31, 40, 28, 38, 52});
-        int expected = 6;
-        assertEquals(expected, next(tree, 4));
+        int expected = 28;
+        assertEquals(expected, next(tree, 20));
 
         expected = 7;
         assertEquals(expected, next(tree, 6));
 
         expected = 9;
         assertEquals(expected, next(tree, 7));
+
+        expected = 20;
+        assertEquals(expected, next(tree, 9));
 
         expected = 28;
         assertEquals(expected, next(tree, 20));
